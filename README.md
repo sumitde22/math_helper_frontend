@@ -1,4 +1,4 @@
-# math_helper_frontend
+# Math Helper Frontend
 
 React front-end for math helper app
 
