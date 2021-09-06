@@ -44,7 +44,8 @@ const QuestionPrompt = ({problemInfo}) => {
     return (
         <div style={centerStyle}>
             <Notification section="SHOW_SOLUTION" />
-            <TeX block>{problemInfo.latex_rep}</TeX>
+            <TeX block>{problemInfo.problem_latex
+            }</TeX>
             {problemInfo.assumptions_latex !== null && <TeX block>{problemInfo.assumptions_latex}</TeX>}
             <Notification section="RESUBMIT" />
             <form onSubmit={submitResponse}>

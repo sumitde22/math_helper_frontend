@@ -3,7 +3,7 @@ import problemService from "../services/problemService"
 import userService from "../services/userService"
 
 const defaultNotificationState = {show: false, message: "", math_expression: null, section: "", success: true}
-const defaultState = {notificationInfo: defaultNotificationState, authInfo: null, allProblems: null, dailyProblems: null, userStatistics: null}
+const defaultState = {notificationInfo: defaultNotificationState, authInfo: null, allProblems: null, dailyProblems: null, userStatistics: null, problemStatistics: null}
 
 // controls state of application
 const reducer = (state = defaultState, action) => {
@@ -22,6 +22,8 @@ const reducer = (state = defaultState, action) => {
         case "GET_DAILY_PROBLEMS":
             return { ...state, dailyProblems: action.payload}
         // set user statistics based on action data
+        case "GET_PROBLEM_STATISTICS":
+            return {...state, problemStatistics: action.payload}
         case "GET_USER_STATISTICS":
             return { ...state, userStatistics: action.payload}
         // release all data current stored in state
@@ -142,6 +144,7 @@ export const submitAnswer = (token, userId, problemId, userAnswer) => {
         dispatch(getDailyProblems(token))
         dispatch(getProblems(token))
         dispatch(getUserStatistics(userId, token))
+        dispatch(getProblemStatistics(token, problemId))
     }
 }
 
@@ -200,6 +203,17 @@ export const getProblems = token => {
         const payload = await problemService.getAllProblems(token)
         const action = {
             type: 'GET_PROBLEMS',
+            payload
+        }
+        dispatch(action)
+    }
+}
+
+export const getProblemStatistics = (token, problem_id) => {
+    return async dispatch => {
+        const payload = await problemService.getProblemStatistics(token, problem_id)
+        const action = {
+            type: 'GET_PROBLEM_STATISTICS',
             payload
         }
         dispatch(action)

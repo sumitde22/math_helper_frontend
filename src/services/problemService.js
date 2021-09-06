@@ -30,6 +30,12 @@ const solveProblem = async (token, problem_id, answer) => {
     }
 }
 
+const getProblemStatistics = async (token, problem_id) => {
+    const apiResponse = await axios.get(`${baseUrl}/${problem_id}`, {headers: {'Authorization': `Bearer ${token}`}})
+    const problemStatistics = apiResponse.data
+    return problemStatistics
+}
+
 // remove logs of all previous attempts of this problem by user
 const resetProblem = async (token, problem_id) => {
     const payload = {'reset': true}
@@ -38,6 +44,6 @@ const resetProblem = async (token, problem_id) => {
     return confirmationMessage
 }
 
-const problemService = {getAllProblems, getDailyProblems, solveProblem, resetProblem}
+const problemService = {getAllProblems, getDailyProblems, solveProblem, getProblemStatistics, resetProblem}
 
 export default problemService

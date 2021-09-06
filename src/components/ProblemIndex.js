@@ -26,18 +26,18 @@ const ProblemIndex = () => {
                     <thead>
                       <tr>
                         <th>Problem</th>
-                        <th>Solved</th>
-                        <th>Attempts</th>
-                        <th>Most Recent Attempt</th>
+                        <th>Type</th>
+                        <th>Correct Streak</th>
+                        <th>Earliest Due</th>
                       </tr>
                     </thead>
                     <tbody>
                         {allProblems.map(problem => 
                             <tr key={problem.id}>
-                                <td> <Link to={`/problems/${problem.id}`}><TeX math={problem.latex_rep} /> </Link> </td>
-                                <td>{problem.solved}</td>
-                                <td>{problem.attempts}</td>
-                                <td>{problem.most_recent_solved !== null ? problem.most_recent_solved.substring(0, 16) : "N/A"}</td>
+                                <td> <Link to={`/problems/${problem.id}`}><TeX math={problem.problem_latex} /> </Link> </td>
+                                <td>{problem.expression_type}</td>
+                                <td>{problem.correct_streak}</td>
+                                <td>{problem.earliest_calculated_due_date !== null ? problem.earliest_calculated_due_date.substring(0, 16) : "N/A"}</td>
                             </tr>
                         )}
                     </tbody>
